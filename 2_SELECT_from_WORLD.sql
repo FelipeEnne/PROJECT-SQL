@@ -1,4 +1,4 @@
--- SELECT names
+-- SELECT from WORLD
 
 -- 1)
 -- Read the notes about this table. Observe the  Answer of running this SQL 

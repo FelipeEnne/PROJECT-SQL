@@ -5,7 +5,7 @@
 SELECT population FROM world
   WHERE name = 'France'
 
--- Result  
+-- Answer  
 SELECT population FROM world
   WHERE name = 'Germany'
 
@@ -15,7 +15,7 @@ SELECT population FROM world
 SELECT name, population FROM world
   WHERE name IN ('Brazil', 'Russia', 'India', 'China');
 
--- Result  
+-- Answer  
 SELECT name, population FROM world
   WHERE name IN ('Sweden', 'Norway', 'Denmark');
 
@@ -25,6 +25,6 @@ SELECT name, population FROM world
 SELECT name, area FROM world
   WHERE area BETWEEN 250000 AND 300000
   
--- Result  
+-- Answer  
 SELECT name, area FROM world
   WHERE area BETWEEN 200000 AND 250000

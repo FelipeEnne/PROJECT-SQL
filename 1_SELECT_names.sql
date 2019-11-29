@@ -5,7 +5,7 @@
 SELECT name FROM world
   WHERE name LIKE 'F%'
 
--- Result  
+-- Answer  
 SELECT name FROM world
   WHERE name LIKE 'Y%'
 
@@ -15,7 +15,7 @@ SELECT name FROM world
 SELECT name FROM world
   WHERE name LIKE 'T%'
 
--- Result  
+-- Answer  
 SELECT name FROM world
   WHERE name LIKE '%y'
 
@@ -25,7 +25,7 @@ SELECT name FROM world
 SELECT name FROM world
   WHERE name LIKE 'T%'
 
--- Result  
+-- Answer  
 SELECT name FROM world
   WHERE name LIKE '%x%'
 
@@ -35,17 +35,17 @@ SELECT name FROM world
 SELECT name FROM world
   WHERE name LIKE 'T%'
 
--- Result  
+-- Answer  
 SELECT name FROM world
   WHERE name LIKE '%land'
 
 
--- 4)
+-- 5)
 -- Find the countries that start with C and end with ia
 SELECT name FROM world
   WHERE name LIKE 'T%'
 
--- Result  
+-- Answer  
 SELECT name FROM world
   WHERE name LIKE 'C%ia'
 
@@ -55,7 +55,7 @@ SELECT name FROM world
 SELECT name FROM world
   WHERE name LIKE '%ee%'
 
--- Result  
+-- Answer  
 SELECT name FROM world
   WHERE name LIKE '%oo%'
 
@@ -65,7 +65,7 @@ SELECT name FROM world
 SELECT name FROM world
   WHERE name LIKE 'T%'
 
--- Result  
+-- Answer  
 SELECT name FROM world
   WHERE name LIKE '%a%a%a%'
 
@@ -76,7 +76,7 @@ SELECT name FROM world
  WHERE name LIKE '_n%'
 ORDER BY name
 
--- Result  
+-- Answer  
 SELECT name FROM world
  WHERE name LIKE '_t%'
 ORDER BY name
@@ -87,7 +87,7 @@ ORDER BY name
 SELECT name FROM world
  WHERE name LIKE '_n%'
 
--- Result  
+-- Answer  
 SELECT name FROM world
  WHERE name LIKE '%o__o%'
 
@@ -97,7 +97,7 @@ SELECT name FROM world
 SELECT name FROM world
  WHERE name LIKE 'Cu%'
 
--- Result  
+-- Answer  
 SELECT name FROM world
  WHERE name LIKE '____'
 
@@ -109,7 +109,7 @@ SELECT name, capital, continent
  WHERE name LIKE '%x%'
 
 
--- Result  
+-- Answer  
 SELECT name
   FROM world
  WHERE name LIKE capital
@@ -121,7 +121,7 @@ SELECT name, concat(name, 'town')
   FROM world
  WHERE name LIKE '%ina%'
 
--- Result  
+-- Answer  
 SELECT name FROM world
  WHERE capital LIKE concat(name, ' %City') 
 
@@ -129,7 +129,7 @@ SELECT name FROM world
 -- 13)
 -- Find the capital and the name where the capital includes the name of the country.
 
--- Result  
+-- Answer  
 SELECT capital, name FROM world
  WHERE capital LIKE concat("%",name,"%")
 
@@ -137,7 +137,7 @@ SELECT capital, name FROM world
 -- 14)
 --Find the capital and the name where the capital is an extension of name of the country
 
--- Result  
+-- Answer  
 SELECT capital, name FROM world
  WHERE capital LIKE concat(name,"_%")
 
@@ -145,6 +145,6 @@ SELECT capital, name FROM world
 -- 15)
 -- Show the name and the extension where the capital is an extension of name of the country.
 
--- Result  
+-- Answer  
 SELECT name, REPLACE(capital, name,'') AS extension FROM world
  WHERE capital LIKE concat(name,"_%")

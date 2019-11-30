@@ -1,85 +1,85 @@
 -- Using Null
 
 -- 1)
--- List the films where the yr is 1962 [Show id, title]
-SELECT id, title
- FROM movie
- WHERE yr=1962
+-- List the teachers who have NULL for their department.
 
 --  Answer 
-
+SELECT teacher.name
+ FROM teacher
+WHERE dept IS NULL
 
 -- 2)
--- Give year of 'Citizen Kane'.
+-- Note the INNER JOIN misses the teachers with no department and the departments with no teacher.
 
 --  Answer  
-SELECT yr
- FROM movie
- WHERE title= 'Citizen Kane'
-
+SELECT teacher.name, dept.name
+ FROM teacher INNER JOIN dept
+           ON (teacher.dept=dept.id)
 
 -- 3)
--- List all of the Star Trek movies, include the id, title and yr (all of these movies include the words Star Trek in the title). 
---Order results by year.
+-- Use a different JOIN so that all teachers are listed.
 
 --  Answer  
-SELECT id, title, yr 
- FROM movie
-WHERE title LIKE 'Star Trek%'
-ORDER BY yr
+SELECT teacher.name, dept.name
+ FROM teacher LEFT JOIN dept
+           ON (teacher.dept=dept.id)
 
 
 
 -- 4)
---  What id number does the actor 'Glenn Close' have?
+-- Use a different JOIN so that all departments are listed.
+
 
 -- Answer  
-SELECT id 
- FROM actor
- WHERE name = 'Glenn Close' 
+SELECT teacher.name, dept.name
+ FROM teacher RIGHT JOIN dept
+           ON (teacher.dept=dept.id) 
 
 
 
 -- 5)
--- What is the id of the film 'Casablanca'
+-- Use COALESCE to print the mobile number. Use the number '07986 444 2266' if there is no number given. 
+-- Show teacher name and mobile number or '07986 444 2266'
 
 --  Answer  
-SELECT id 
- FROM movie
- WHERE title = 'Casablanca' 
+SELECT name, COALESCE(mobile,'07986 444 2266')
+ FROM teacher 
 
 
 
 -- 6)
--- Obtain the cast list for 'Casablanca'.
+-- Use the COALESCE function and a LEFT JOIN to print the teacher name and department name. 
+-- Use the string 'None' where there is no department.
 
 --  Answer  
-SELECT name
- FROM actor JOIN casting ON (id=actorid)
- WHERE movieid= '11768' 
+SELECT teacher.name, COALESCE(dept.name,'None')
+ FROM teacher LEFT JOIN dept
+           ON (teacher.dept=dept.id)
+
 
 
 -- 7)
--- Obtain the cast list for the film 'Alien'
+-- Use COUNT to show the number of teachers and the number of mobile phones.
 
 --  Answer  
-SELECT name
- FROM actor JOIN casting ON (id=actorid)
- WHERE movieid= (SELECT id 
-                 FROM movie
-                 WHERE title = 'Alien' )
+SELECT COUNT(name) AS Number_Teachers, COUNT(mobile) AS Number_Mobile
+ FROM teacher 
 
 
 
 -- 8)
--- List the films in which 'Harrison Ford' has appeared
+-- LUse COUNT and GROUP BY dept.name to show each department and the number of staff. 
+-- Use a RIGHT JOIN to ensure that the Engineering department is listed.
 
 --  Answer  
-SELECT title 
- FROM casting 
-  JOIN actor ON actorid = actor.id 
-  JOIN movie ON movieid = movie.id
- WHERE name = 'Harrison Ford'
+SELECT  dept.name, COUNT(teacher.name)
+ FROM teacher RIGHT JOIN dept
+           ON (teacher.dept=dept.id)
+GROUP BY dept.name
+
+
+
+
 
 
 
@@ -89,19 +89,18 @@ SELECT title
 -- If ord=1 then this actor is in the starring role]
 
 --  Answer  
-SELECT title 
- FROM casting 
-  JOIN actor ON actorid = actor.id 
-  JOIN movie ON movieid = movie.id
- WHERE name = 'Harrison Ford' AND ord <> 1
+SELECT teacher.name ,
+CASE WHEN teacher.dept= 1 OR teacher.dept= 2 THEN  'Sci'  ELSE  'Art' END
+ FROM teacher 
+
 
 -- 10)
--- List the films together with the leading star for all 1962 films.
+-- Use CASE to show the name of each teacher followed by 'Sci' if the teacher is in dept 1 or 2, 
+-- show 'Art' if the teacher's dept is 3 and 'None' otherwise.
 
 --  Answer  
-SELECT DISTINCT title, name
- FROM casting 
-  JOIN actor ON actorid = actor.id 
-  JOIN movie ON movieid = movie.id
- WHERE yr = 1962 AND ord = 1
-
+SELECT teacher.name ,
+CASE 
+WHEN teacher.dept= 1 OR teacher.dept= 2 THEN  'Sci' 
+WHEN teacher.dept= 3 THEN  'Art' ELSE  'None' END
+ FROM teacher 
